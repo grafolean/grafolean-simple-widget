@@ -1,4 +1,11 @@
 {
+  "name": "grafolean-simple-widget",
+  "version": "0.0.1",
+  "description": "Example widget plugin for Grafolean",
+  "main": "index.js",
+  "repository": "https://github.com/grafolean/grafolean-simple-widget/",
+  "author": "Anze <anze@grafolean.com>",
+  "license": "Commons Clause",
   "devDependencies": {
     "lint": "^0.7.0",
     "prettier": "^1.19.1"

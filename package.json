@@ -7,6 +7,8 @@
   "author": "Anze <anze@grafolean.com>",
   "license": "Commons Clause",
   "devDependencies": {
+    "babel-cli": "6",
+    "babel-preset-react-app": "3",
     "lint": "^0.7.0",
     "prettier": "^1.19.1"
   }

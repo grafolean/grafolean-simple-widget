@@ -14,6 +14,15 @@ module.exports = {
           'babel-loader',
         ],
       },
+      // Sass:
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      }
     ],
   },
   externals: {

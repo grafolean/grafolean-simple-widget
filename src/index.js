@@ -1,5 +1,6 @@
 import React from "react";
 
+import './index.scss';
 
 export default class MyWidget extends React.Component {
   state = {
@@ -17,7 +18,7 @@ export default class MyWidget extends React.Component {
     const { accountName } = this.state;
 
     return (
-      <div>
+      <div className="plugin-my-widget">
         <PersistentFetcher resource="accounts/1" onUpdate={this.onAccountUpdate} />
         {accountName === null ? "Loading..." : `Hello ${accountName}` }
       </div>

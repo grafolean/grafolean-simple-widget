@@ -2,14 +2,25 @@
   "name": "grafolean-simple-widget",
   "version": "0.0.1",
   "description": "Example widget plugin for Grafolean",
-  "main": "index.js",
+  "main": "dist/main.js",
   "repository": "https://github.com/grafolean/grafolean-simple-widget/",
-  "author": "Anze <anze@grafolean.com>",
-  "license": "Commons Clause",
+  "private": true,
+  "scripts": {
+    "start": "webpack --mode development --watch",
+    "build": "webpack"
+  },
   "devDependencies": {
-    "babel-cli": "6",
-    "babel-preset-react-app": "3",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
     "lint": "^0.7.0",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "react": "^16.8",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  },
+  "peerDependencies": {
+    "react": "^16.8"
   }
 }

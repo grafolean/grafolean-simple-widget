@@ -14,12 +14,15 @@ export default class MyWidget extends React.Component {
   }
 
   render() {
-    const { g: { components: { PersistentFetcher } } } = this.props;
+    const { g: {
+      components: { PersistentFetcher },
+      urlParams: { accountId },
+    } } = this.props;
     const { accountName } = this.state;
 
     return (
       <div className="plugin-my-widget">
-        <PersistentFetcher resource="accounts/1" onUpdate={this.onAccountUpdate} />
+        <PersistentFetcher resource={`accounts/${accountId}`} onUpdate={this.onAccountUpdate} />
         {accountName === null ? "Loading..." : `Hello ${accountName}` }
       </div>
     )

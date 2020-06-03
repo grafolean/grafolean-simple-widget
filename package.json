@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "webpack --mode development --watch",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

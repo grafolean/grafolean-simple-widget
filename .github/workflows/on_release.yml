@@ -1,0 +1,57 @@
+name: Create release
+
+on:
+  release:
+    types: [published]
+
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout source code
+      uses: actions/checkout@v1
+
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10'
+
+
+    - name: Get tag name and assets upload URL
+      id: get_tag
+      run: |
+        sudo apt-get install -y -q jq
+        export TAG=${GITHUB_REF#refs/tags/}
+        export ASSETS_UPLOAD_URL=`curl "https://api.github.com/repos/${{ github.repository }}/releases/tags/$TAG" | jq -r ".upload_url"`
+        echo "::set-output name=tag::$TAG"
+        echo "::set-output name=upload_url::$ASSETS_UPLOAD_URL"
+
+
+    - name: Build
+      run: |
+        npm ci
+        npm run build
+
+
+    - name: Create widgetplugin.tar.gz bundle
+      if: success() && startsWith(github.ref, 'refs/tags/v')
+      run: |
+        sudo apt-get install -y -q jq
+        cat src/manifest.json | jq ". + {\"version\": \"${{ steps.get_tag.outputs.tag }}\", \"repo\": \"https://github.com/${{ github.repository }}\"}" > dist/manifest.json
+        cd dist/
+        tar -cvzf ../widgetplugin.tar.gz widget.js form.js manifest.json
+
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_tag.outputs.upload_url }}
+        asset_path: ./widgetplugin.tar.gz
+        asset_name: widgetplugin.tar.gz
+        asset_content_type: application/gzip
